@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <limits>
-
+#include <cmath>
 
 class Converter
 {
@@ -55,7 +55,7 @@ class Converter
 			public:
 				virtual const char* what() const throw()
 				{
-					return "Input is not a numeric notation or a character";
+					return "Input is not a valid numeric notation or a character";
 				}
 		};
 };

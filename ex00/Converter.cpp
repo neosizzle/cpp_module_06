@@ -56,6 +56,16 @@ int	ft_strchr(std::string str, char c)
 	return -1;
 }
 
+std::string ft_dotzero(double number)
+{
+	std::string empty = "";
+	std::string dotzero = ".0";
+
+	if (number - static_cast<int>(number) == 0.0)
+		return (dotzero);
+	return (empty);
+}
+
 bool printable_char(double num)
 {
 	if (num <= 126 && num >= 32)
@@ -75,21 +85,41 @@ bool printable_int(double num, std::string input)
 		std::cout << "int: impossible\n";
 		return false;
 	}
-
-	return true ;
+	else if (num <= std::numeric_limits<int>::max() && num >= std::numeric_limits<int>::min())
+	{
+		return true;
+	}
+	std::cout << "int: impossible\n";
+	return false ;
 }
 
 bool printable_float(double num)
 {
-	if (num <= 126 && num >= 32)
-		return true ;
-	else if (num >= 0 && num <= 127)
-	{
-		std::cout << "char: Non displayable\n";
-		return false ;
-	}
-	std::cout << "char: impossible\n";
-	return false ;
+	if (
+		(num <= std::numeric_limits<float>::max() &&
+		num >= std::numeric_limits<float>::min()) ||
+		num == std::numeric_limits<float>::infinity() || 
+		num == -std::numeric_limits<float>::infinity() ||
+		std::isnan(num)
+	)
+		return true;
+	std::cout << "float: impossible\n";
+	return false;
+	
+}
+
+bool printable_double(double num)
+{
+	if (
+		(num <= std::numeric_limits<double>::max() &&
+		num >= std::numeric_limits<double>::min()) ||
+		num == std::numeric_limits<double>::infinity() || 
+		num == -std::numeric_limits<double>::infinity() ||
+		std::isnan(num)
+	)
+		return true;
+	std::cout << "double: impossible\n";
+	return false;
 }
 /*
 ** Class functions
@@ -217,19 +247,21 @@ void	Converter::print_float()
 {
 	if (_selectedType == Converter::CHAR_TYPE)
 	{
-		std::cout << "float: " <<  static_cast<float>(this->_charScalar) <<  ".0f\n";
+		std::cout << "float: " <<  static_cast<float>(this->_charScalar) << ft_dotzero(this->_charScalar) <<"f\n";
 	}
 	else if (_selectedType == Converter::FLOAT_TYPE)
 	{
-		std::cout << "float: " << this->_floatScalar << "f\n";
+		std::cout << "float: " << this->_floatScalar << ft_dotzero(this->_floatScalar) <<"f\n";
 	}
 	else if (_selectedType == Converter::DOUBLE_TYPE)
 	{
-		
+		if (printable_float(this->_doubleScalar))
+			std::cout << "float: " << static_cast<float>(this->_doubleScalar) << ft_dotzero(this->_doubleScalar) <<"f\n";
 	}
 	else if (_selectedType == Converter::INT_TYPE)
 	{
-		
+		if (printable_float(this->_intScalar))
+					std::cout << "float: " << static_cast<float>(this->_intScalar) << ft_dotzero(this->_intScalar) <<"f\n";		
 	}
 	else
 		std::cout << "No type selected\n";
@@ -241,19 +273,21 @@ void	Converter::print_double()
 {
 	if (_selectedType == Converter::CHAR_TYPE)
 	{
-		std::cout << "double: " << static_cast<double>(this->_charScalar) << ".0\n";
+		std::cout << "double: " << static_cast<double>(this->_charScalar) << ft_dotzero(this->_charScalar) <<"\n";
 	}
 	else if (_selectedType == Converter::FLOAT_TYPE)
 	{
-
+		std::cout << "double: " << static_cast<double>(this->_floatScalar) << ft_dotzero(this->_floatScalar) <<"\n";
 	}
 	else if (_selectedType == Converter::DOUBLE_TYPE)
 	{
-		std::cout << "double: " << this->_doubleScalar << "\n";
+		if (printable_double(this->_doubleScalar))
+			std::cout << "double: " << this->_doubleScalar << ft_dotzero(this->_doubleScalar) <<"\n";
 	}
 	else if (_selectedType == Converter::INT_TYPE)
 	{
-		
+		if (printable_double(this->_intScalar))
+			std::cout << "double: " << static_cast<double>(this->_intScalar) << ft_dotzero(this->_intScalar) <<"\n";
 	}
 	else
 		std::cout << "No type selected\n";
@@ -270,11 +304,13 @@ void	Converter::print_int(std::string input)
 	}
 	else if (_selectedType == Converter::FLOAT_TYPE)
 	{
-		
+		if (printable_int(this->_floatScalar, input))
+			std::cout << "int: " << static_cast<int>(this->_floatScalar) << "\n";
 	}
 	else if (_selectedType == Converter::DOUBLE_TYPE)
 	{
-		
+		if (printable_int(this->_doubleScalar, input))
+			std::cout << "int: " << static_cast<int>(this->_doubleScalar) << "\n";
 	}
 	else if (_selectedType == Converter::INT_TYPE)
 	{
