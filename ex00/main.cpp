@@ -1,8 +1,15 @@
 #include <iostream>
 #include <cmath> 
+#include  "Converter.hpp"
 int	main(int argc, char **argv)
 {
-	// int test =  static_cast<int> (NAN);
-	std::cout << atoi("123434335345345345") << "\n";
+	if (argc != 2)
+	{
+		std::cout << "param error\n";
+		return 1;
+	}
+	Converter conv;
+	conv.process_input(argv[1]);
+	conv.printConversions(argv[1]);
 	return 0;
 }
