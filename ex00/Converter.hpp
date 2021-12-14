@@ -16,11 +16,11 @@ class Converter
 		int		_intScalar;
 
 		//MACROS
-		int	NO_TYPE = -1;
-		int	CHAR_TYPE = 0;
-		int	FLOAT_TYPE = 1;
-		int	DOUBLE_TYPE = 2;
-		int	INT_TYPE = 3;
+		static int	NO_TYPE = -1;
+		static int	CHAR_TYPE = 0;
+		static int	FLOAT_TYPE = 1;
+		static int	DOUBLE_TYPE = 2;
+		static int	INT_TYPE = 3;
 
 		int		getType(std::string input);
 		void	print_char();
