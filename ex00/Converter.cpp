@@ -97,7 +97,7 @@ bool printable_float(double num)
 {
 	if (
 		(num <= std::numeric_limits<float>::max() &&
-		num >= std::numeric_limits<float>::min()) ||
+		num >= -std::numeric_limits<float>::max()) ||
 		num == std::numeric_limits<float>::infinity() || 
 		num == -std::numeric_limits<float>::infinity() ||
 		std::isnan(num)
@@ -112,7 +112,7 @@ bool printable_double(double num)
 {
 	if (
 		(num <= std::numeric_limits<double>::max() &&
-		num >= std::numeric_limits<double>::min()) ||
+		num >= -std::numeric_limits<float>::max()) ||
 		num == std::numeric_limits<double>::infinity() || 
 		num == -std::numeric_limits<double>::infinity() ||
 		std::isnan(num)
